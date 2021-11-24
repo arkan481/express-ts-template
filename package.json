@@ -1,0 +1,14 @@
+{
+  "name": "monitoring-api",
+  "version": "1.0.0",
+  "description": "Monitoring Express API for NgajiKolektif",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Arkan Haryo",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
