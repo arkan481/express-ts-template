@@ -1,8 +1,5 @@
-// TODO: CONSTANTS
-// TODO: SETUP LOGGER ON UNHANDLED REJECTION
-// TODO: SETUP LOGGER ON EVERY REQUEST USING MORGAN WITH EXPRESS APP
 import dotenv from 'dotenv';
-import express from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import morgan from 'morgan';
 import logger from './config/logger';
 
@@ -24,9 +21,31 @@ app.use(
   }),
 );
 
+// Logging runtime errors with custom logger, then delegating to express default error handler
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  logger.error(err.message);
+  // delegating the error to express default error handler
+  next(err);
+});
+
 // start express to listen to a port
-app.listen(process.env.PORT || 5000, () => {
+const server = app.listen(process.env.PORT || 5000, () => {
   logger.info(
     `Server is running in ${process.env.NODE_ENV} mode, on port: ${process.env.PORT}`,
   );
 });
+
+// ! Handling BIG FATAL errors
+process
+  .on('unhandledRejection', (err) => {
+    logger.error(`FATAL|Unhandled Rejection: ${err}`);
+    server.close(() => {
+      process.exit(48);
+    });
+  })
+  .on('uncaughtException', (err) => {
+    logger.error(`FATAL|Uncaught Exception: ${err}`);
+    server.close(() => {
+      process.exit(48);
+    });
+  });
