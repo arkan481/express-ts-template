@@ -1,3 +1,6 @@
+// TODO: IMPLEMENT SWAGGER DOCS
+// TODO: HANDLE MONGOOSE ERROR LOGGING, CUSTOM ERROR CLASS, ASYNC HANDLER ERROR
+// TODO: INSTALL ALL SECURITY NPM PACKAGES, MONGO-SANIIZE, ETC.
 import dotenv from 'dotenv';
 import express, { NextFunction, Request, Response } from 'express';
 import morgan from 'morgan';

@@ -18,7 +18,6 @@ const logger = winston.createLogger({
     // - Write all logs with level `info` and below to `combined.log`
     //
     new winston.transports.File({
-      // TODO: Change file name for dynamic naming in config.env
       filename: path.join(__dirname, '../../logs/error.log'),
       level: 'error',
       format: winstonFileFormat,
