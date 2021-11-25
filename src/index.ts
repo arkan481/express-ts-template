@@ -4,7 +4,7 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import morgan from 'morgan';
-import logger from './config/Logger';
+import logger from './config/logger';
 
 // Using .env
 dotenv.config();
