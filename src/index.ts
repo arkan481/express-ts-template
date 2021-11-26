@@ -4,6 +4,7 @@
 import dotenv from 'dotenv';
 import express, { NextFunction, Request, Response } from 'express';
 import morgan from 'morgan';
+import { OpticMiddleware } from '@useoptic/express-middleware';
 import logger from './config/logger';
 
 // Using .env
@@ -21,6 +22,14 @@ app.use(
         logger.info(info);
       },
     },
+  }),
+);
+
+// Using optic middleware to document the API
+app.use(
+  OpticMiddleware({
+    // not enabled in production
+    enabled: process.env.NODE_ENV !== 'production',
   }),
 );
 
