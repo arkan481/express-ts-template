@@ -1,6 +1,6 @@
 // TODO: HANDLE MONGOOSE ERROR LOGGING, CUSTOM ERROR CLASS, ASYNC HANDLER ERROR
 import dotenv from 'dotenv';
-import express, { NextFunction, Request, Response } from 'express';
+import express from 'express';
 import morgan from 'morgan';
 import { OpticMiddleware } from '@useoptic/express-middleware';
 import bodyParser from 'body-parser';
@@ -10,6 +10,7 @@ import hpp from 'hpp';
 import cors from 'cors';
 import logger from './config/logger';
 import limiter from './config/limiter';
+import errorHandler from './utils/errors/errorHandler';
 
 // Using .env
 dotenv.config();
@@ -64,12 +65,9 @@ app.use(
 // app.set('trust proxy', 1);
 app.use(limiter);
 
-// Logging runtime errors with custom logger, then delegating to express default error handler
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-  logger.error(err.message);
-  // delegating the error to express default error handler
-  next(err);
-});
+// Using custom error handler middleware
+// * Make sure this comes AFTER every other middlewares!
+app.use(errorHandler);
 
 // start express to listen to a port
 const server = app.listen(process.env.PORT || 5000, () => {
