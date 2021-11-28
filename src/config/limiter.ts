@@ -4,7 +4,7 @@ import rateLimit from 'express-rate-limit';
 // see https://expressjs.com/en/guide/behind-proxies.html
 // app.set('trust proxy', 1);
 
-const rateMinute: any = process.env.RATE_MINUTE!! || 15;
+const rateMinute: any = process.env.RATE_MINUTE || 15;
 const rateMax: any = process.env.RATE_MAX || 100;
 
 export default rateLimit({

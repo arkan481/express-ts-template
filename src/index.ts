@@ -11,6 +11,7 @@ import cors from 'cors';
 import logger from './config/logger';
 import limiter from './config/limiter';
 import errorHandler from './utils/errors/errorHandler';
+import db from './config/databaseConfig';
 
 // Using .env
 dotenv.config();
@@ -65,6 +66,10 @@ app.use(
 // app.set('trust proxy', 1);
 app.use(limiter);
 
+// Instansiating db as a function call
+// * Make sure this comes BEFORE every routes
+db();
+
 // Using custom error handler middleware
 // * Make sure this comes AFTER every other middlewares!
 app.use(errorHandler);
@@ -78,13 +83,13 @@ const server = app.listen(process.env.PORT || 5000, () => {
 
 // ! Handling BIG FATAL errors
 process
-  .on('unhandledRejection', (err) => {
+  .on('unhandledRejection', (err: Error) => {
     logger.error(`FATAL|Unhandled Rejection: ${err}`);
     server.close(() => {
       process.exit(48);
     });
   })
-  .on('uncaughtException', (err) => {
+  .on('uncaughtException', (err: Error) => {
     logger.error(`FATAL|Uncaught Exception: ${err}`);
     server.close(() => {
       process.exit(48);
