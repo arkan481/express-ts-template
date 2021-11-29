@@ -8,11 +8,8 @@ import helmet from 'helmet';
 import xss from 'xss-clean';
 import hpp from 'hpp';
 import cors from 'cors';
-import logger from './config/logger';
-import limiter from './config/limiter';
-import mongooseErrorHandler from './utils/errors/mongooseErrorHandler';
-import errorHandler from './utils/errors/errorHandler';
-import db from './config/databaseConfig';
+import { logger, limiter, databaseConfig as db } from './config';
+import { mongooseErrorHandler, errorHandler } from './utils/errors';
 
 // Using .env
 dotenv.config();

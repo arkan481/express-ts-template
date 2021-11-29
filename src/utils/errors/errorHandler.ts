@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import CustomError from './customError';
-import logger from '../../config/logger';
+import { logger } from '../../config';
 
 /**
  * God tier error handler
