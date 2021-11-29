@@ -1,4 +1,4 @@
-// TODO: HANDLE MONGOOSE ERROR LOGGING, CUSTOM ERROR CLASS, ASYNC HANDLER ERROR
+// TODO: ASYNC HANDLER ERROR
 import dotenv from 'dotenv';
 import express from 'express';
 import morgan from 'morgan';
@@ -10,6 +10,7 @@ import hpp from 'hpp';
 import cors from 'cors';
 import logger from './config/logger';
 import limiter from './config/limiter';
+import mongooseErrorHandler from './utils/errors/mongooseErrorHandler';
 import errorHandler from './utils/errors/errorHandler';
 import db from './config/databaseConfig';
 
@@ -69,6 +70,11 @@ app.use(limiter);
 // Instansiating db as a function call
 // * Make sure this comes BEFORE every routes
 db();
+
+// Using mogngoose error handler middleware
+// * Make sure this comes BEFORE the god-tier error handler
+// * Make sure this comes AFTER the db instansiation
+app.use(mongooseErrorHandler);
 
 // Using custom error handler middleware
 // * Make sure this comes AFTER every other middlewares!

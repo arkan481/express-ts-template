@@ -22,10 +22,8 @@ const errorHandler = (
     });
   }
 
-  // TODO: Check for mongo error
-
   // Log error to file
-  logger.error(err);
+  logger.error(err.message);
 
   return res.status(500).json({
     success: false,
