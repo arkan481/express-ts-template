@@ -8,6 +8,7 @@ import helmet from 'helmet';
 import xss from 'xss-clean';
 import hpp from 'hpp';
 import cors from 'cors';
+import mongoSanitize from 'express-mongo-sanitize';
 import { logger, limiter, databaseConfig as db } from './config';
 import { mongooseErrorHandler, errorHandler } from './utils/errors';
 
@@ -38,6 +39,19 @@ app.use(
 
 // Using body parser to parse request body, only to JSON format for every routes
 app.use(bodyParser.json());
+
+// Using mongo sanitize to prevent mongodb operator injection
+// * Make sure this comes AFTER using body parser
+app.use(
+  mongoSanitize({
+    onSanitize: ({ key, req }) => {
+      const sanitizedReqUrl = `${req.protocol}://${req.get('host')}${
+        req.originalUrl
+      }`;
+      logger.warning(`This request[${key}] was sanitized: ${sanitizedReqUrl}`);
+    },
+  }),
+);
 
 // Using xss clean to sanitize data in req.body, req.query, and req.params from xss attack
 // * Make sure this comes BEFORE using every routes
