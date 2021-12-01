@@ -1,4 +1,4 @@
-// TODO: RESPONSE CONTRACT CLASS
+// TODO: FIGURE OUT THE ROUTES -> CONTROLLER -> SERVICE -> REPOSITORY -> MODEL PATTERN
 import dotenv from 'dotenv';
 import express from 'express';
 import morgan from 'morgan';
