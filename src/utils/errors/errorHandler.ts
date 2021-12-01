@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import CustomError from './customError';
 import { logger } from '../../config';
+import { ErrorResponse } from '../responses';
 
 /**
  * God tier error handler
@@ -16,19 +17,13 @@ const errorHandler = (
   if (err instanceof CustomError) {
     // Log error to file
     logger.error(err.message);
-    return res.status(err.statusCode).json({
-      success: false,
-      error: err.message,
-    });
+    return res.status(err.statusCode).json(new ErrorResponse(err.message));
   }
 
   // Log error to file
   logger.error(err.message);
 
-  return res.status(500).json({
-    success: false,
-    error: err.message || 'Server Error',
-  });
+  return res.status(500).json(new ErrorResponse(err.message || 'Server Error'));
 };
 
 export default errorHandler;
