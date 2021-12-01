@@ -32,7 +32,8 @@
     "mongoose": "^6.0.13",
     "morgan": "^1.10.0",
     "winston": "^3.3.3",
-    "xss-clean": "^0.1.1"
+    "xss-clean": "^0.1.1",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.4.0",

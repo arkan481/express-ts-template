@@ -1,5 +1,3 @@
-// TODO: ASYNC HANDLER ERROR
-// TODO: YUP VALIDATION LAYER
 // TODO: RESPONSE CONTRACT CLASS
 import dotenv from 'dotenv';
 import express from 'express';
@@ -12,7 +10,11 @@ import hpp from 'hpp';
 import cors from 'cors';
 import mongoSanitize from 'express-mongo-sanitize';
 import { logger, limiter, databaseConfig as db } from './config';
-import { mongooseErrorHandler, errorHandler } from './utils/errors';
+import {
+  mongooseErrorHandler,
+  errorHandler,
+  validationErrorHandler,
+} from './utils/errors';
 
 // Using .env
 dotenv.config();
@@ -83,6 +85,10 @@ app.use(limiter);
 // Instansiating db as a function call
 // * Make sure this comes BEFORE every routes
 db();
+
+// Using validation error handler middleware
+// * Make sure this comes AFTER every routes
+app.use(validationErrorHandler);
 
 // Using mogngoose error handler middleware
 // * Make sure this comes BEFORE the god-tier error handler
