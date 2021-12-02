@@ -15,6 +15,7 @@ import {
   errorHandler,
   validationErrorHandler,
 } from './utils/errors';
+import authRoutes from './api/v1/routes/authRoutes';
 
 // Using .env
 dotenv.config();
@@ -85,6 +86,9 @@ app.use(limiter);
 // Instansiating db as a function call
 // * Make sure this comes BEFORE every routes
 db();
+
+// Mounting route files
+app.use('/auth', authRoutes);
 
 // Using validation error handler middleware
 // * Make sure this comes AFTER every routes
