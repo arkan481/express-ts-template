@@ -1,6 +1,6 @@
 # Welcome to Express TS Boilerplate 👋
 
-[![Version](https://img.shields.io/npm/v/Express TS Boilerplate.svg)](https://www.npmjs.com/package/Express TS Boilerplate)
+[![Version](https://img.shields.io/npm/v/ExpressTSBoilerplate.svg)](https://www.npmjs.com/package/ExpressTSBoilerplate)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#)
 [![Twitter: arkanharyo](https://img.shields.io/twitter/follow/arkanharyo.svg?style=social)](https://twitter.com/arkanharyo)
 
